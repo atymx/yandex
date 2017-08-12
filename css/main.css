@@ -41,10 +41,7 @@ form label {
     padding: 7px 6px;
     font-weight: normal;
 }
-form textarea {
-    display: block;
-    resize: vertical;
-}
+
 form.go-bottom input, form.go-bottom textarea {
     padding: 12px 12px 12px 12px;
 }
