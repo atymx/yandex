@@ -1,56 +1,59 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="ru">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
 
+    <meta charset="utf-8">
     <title>Yandex</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Custom CSS -->
     <link href="css/main.css" rel="stylesheet">
+
 </head>
 
 <body>
 
+<!--<form name="myForm" action="#" method="POST">
+    <input type="text" name="fio" value="" placeholder="ФИО" required/><br>
+    <input type="email" name="email" value="" placeholder="Email" required/><br>
+    <input type="tel" name="phone" value="" placeholder="Телефон" required/><br>
+    <input type="button" id="submitButton" value="Отправить" />
+</form> -->
 
-<div class="container">
-    <div class="row">
-        <form role="form" class="col-md-9 go-right">
-            <h2>Yandex</h2>
-            <p>Форма обратной связи</p>
-            <div class="form-group">
-                <input id="name" name="name" type="text" class="form-control" required>
-                <label for="name">Ф.И.О.</label>
-            </div>
-            <div class="form-group">
-                <input id="phone" name="phone" type="tel" class="form-control" required>
-                <label for="phone">Телефон</label>
-            </div>
-            <div class="form-group">
-                <input id="email" name="email" type="email" class="form-control" required>
-                <label for="email">E-mail</label>
-            </div>
-            <div class="form-group">
-                <div class="col-md-12 text-right">
-                    <button type="submit" class="btn btn-primary btn-lg">Отправить</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-
+<section class="yandex-form">
+    <h1 class="title">Yandex. Вступительное задание в школу Node.js</h1>
+    <form class="contact-form row" name="myForm" action="#" method="post">
+        <div class="form-field col x-100">
+            <input id="fio" name="fio" value="" class="input-text js-input" type="text" placeholder="Ф.И.О." required>
+            <!--<label class="label" for="fio">Ф.И.О.</label>-->
+        </div>
+        <div class="form-field col x-100">
+            <input id="email" name="email" value="" class="input-text js-input" type="email" placeholder="E-mail" required>
+            <!--<label class="label" for="email">E-mail</label>-->
+        </div>
+        <div class="form-field col x-100">
+            <input id="phone" name="phone" value="" class="input-text js-input" type="tel" placeholder="Телефон" required>
+            <!--<label class="label" for="phone">Телефон</label>-->
+        </div>
+        <div class="form-field col x-100 align-center">
+            <input class="submit-btn" type="button" id="submitButton" value="Отправить">
+        </div>
+    </form>
+    <div id="resultContainer"> </div>
+</section>
 
 <!-- jQuery -->
-<script src="js/jquery.js"></script>
+<script src="lib/jquery.js"></script>
 <!-- Bootstrap Core JavaScript -->
-<script src="js/bootstrap.min.js"></script>
+<script src="lib/bootstrap.min.js"></script>
+<!-- Обработчик формы -->
+<script src="index.js"></script>
+<!-- Маска для ввода мобильного телефона -->
+<script src="lib/inputmask/dist/jquery.inputmask.bundle.js"></script>
+<script src="lib/inputmask/dist/inputmask/phone-codes/phone-ru.js"></script>
 
 </body>
 
