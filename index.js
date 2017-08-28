@@ -10,14 +10,35 @@ $(document).ready(function () {
     $("input[name=phone]").inputmask('phoneru');
 });
 
-$( '.js-input' ).keyup(function() {
-    if( $(this).val() ) {
-        $(this).addClass('not-empty');
-    } else {
-        $(this).removeClass('not-empty');
-    }
-});
-
 $("#submitButton").click(function () {
     //TODO: написать поведение формы
+    var url = $("form[name=myForm]").attr("action");
+    deleteErrors();
+    var validResult = validation();
+    if (validResult[0] === "OK" && validResult[1] === "OK" && validResult[2] === "OK") {
+         var request = $.ajax({
+            method: 'POST',
+            url: url,
+            data: {"fio": getFio(), "email": getEmail(), "phone": getPhone()},
+            beforeSend: function () {
+                $(this).prop('disabled', true);
+            },
+            complete: function () {
+                $(this).prop('disable', false);
+            }
+        });
+        request.done(function (response) {
+            console.log(response);
+        })
+    } else {
+        if (validResult[0] !== "OK") {
+            addError(["fio", validResult[0]]);
+        }
+        if (validResult[1] !== "OK") {
+            addError(["email", validResult[1]]);
+        }
+        if (validResult[2] !== "OK") {
+            addError(["phone", validResult[2]]);
+        }
+    }
 });

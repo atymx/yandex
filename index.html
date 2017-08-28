@@ -25,7 +25,7 @@
 
 <section class="yandex-form">
     <h1 class="title">Yandex. Вступительное задание в школу Node.js</h1>
-    <form class="contact-form row" name="myForm" action="#" method="post">
+    <form class="contact-form row" name="myForm" action="success.json" method="post">
         <div class="form-field col x-100">
             <input id="fio" name="fio" value="" class="input-text js-input" type="text" placeholder="Ф.И.О." required>
             <!--<label class="label" for="fio">Ф.И.О.</label>-->
@@ -42,7 +42,7 @@
             <input class="submit-btn" type="button" id="submitButton" value="Отправить">
         </div>
     </form>
-    <div id="resultContainer"> </div>
+    <div id="resultContainer"></div>
 </section>
 
 <!-- jQuery -->
@@ -51,11 +51,23 @@
 <script src="lib/bootstrap.min.js"></script>
 <!-- Функции валидаций -->
 <script src="lib/validFunc.js"></script>
+<!-- Функции DOM манипуляций -->
+<script src="lib/domFunc.js"></script>
 <!-- Обработчик формы -->
 <script src="index.js"></script>
 <!-- Маска для ввода мобильного телефона -->
 <script src="lib/inputmask/dist/jquery.inputmask.bundle.js"></script>
 <script src="lib/inputmask/dist/inputmask/phone-codes/phone-ru.js"></script>
+
+<script>
+    $( '.js-input' ).keyup(function() {
+        if( $(this).val() ) {
+            $(this).addClass('not-empty');
+        } else {
+            $(this).removeClass('not-empty');
+        }
+    });
+</script>
 
 </body>
 
