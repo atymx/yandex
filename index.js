@@ -188,4 +188,3 @@ $("#submitButton").click(function () {
     MyForm.submit();
 });
 
-MyForm.setData({phone: '8005500000', 'fio': 'a a a', 'email': 'a@ya.ru'});
