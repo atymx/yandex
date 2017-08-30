@@ -77,7 +77,7 @@ var MyForm = {
             return "Не введен Ф.И.О.";
         }
 
-        if (fio.split(" ").length !== 3){
+        if (fio.split(" ").length !== 3 || (!fio.split(" ")[0] || !fio.split(" ")[1] || !fio.split(" ")[2])){
             return "Ф.И.О. должно состоять из трех слов!"
         }
         return "OK";
@@ -90,10 +90,16 @@ var MyForm = {
         }
 
         var sum = 0;
+        var num = 0;
         for (var i = 0; i < phone.length; i++) {
             if (isFinite(phone[i])) {
                 sum += parseInt(phone[i]);
+                num++;
             }
+        }
+
+        if (num !== 11) {
+            return "Телефонный номер должен содержать 11 цифр!"
         }
 
         if (sum > 30) {
