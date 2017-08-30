@@ -187,4 +187,3 @@ var MyForm = {
 $("#submitButton").click(function () {
     MyForm.submit();
 });
-
