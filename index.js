@@ -1,32 +1,33 @@
 /**
  * Created by aty.max on 12.08.17.
  */
-'use strict';
+"use strict";
 
 $(document).ready(function () {
     // Маска для российских телефонных номеров
-    $("input[name=phone]").inputmask('phoneru');
+    $("input[name=phone]").inputmask("phoneru");
 });
 
 var MyForm = {
-    selector: '#myForm',
-    inputs: ['fio', 'email', 'phone'],
+    selector: "#myForm", //id формы
+    inputs: ["fio", "email", "phone"], //атрибуты name полей формы
 
     getData: function () {
         var result = {};
         for (var key in this.inputs) {
             var inputName = this.inputs[key];
-            result[inputName] = $('input[name=' + inputName + ']').val();
+            result[inputName] = $("input[name=" + inputName + "]").val();
         }
         return result;
     },
     setData: function (Object) {
         for (var key in this.inputs) {
             var inputName = this.inputs[key];
-            $('input[name=' + inputName + ']').val(Object[inputName]);
+            $("input[name=" + inputName + "]").val(Object[inputName]);
         }
     },
 
+    //Функция удаления класса error со всех полей формы и очистки контейнера с результатом отправки формы
     deleteErrors: function () {
         $("input[name=fio]").removeClass("error");
         $("input[name=email]").removeClass("error");
@@ -36,28 +37,19 @@ var MyForm = {
     addErrorClassForField: function (fieldName) {
         $("input[name=" + fieldName + "]").addClass("error");
     },
+    //Функция добавления сообщений об ошибках в контейнер с результатом отправки формы
     addErrorMessage: function (message) {
         $("#resultContainer").append("<p>" + message + "</p>");
     },
 
-    getFio: function () {
-        return this.getData()["fio"];
-    },
-    getEmail: function () {
-        return this.getData()["email"];
-    },
-    getPhone: function () {
-        return this.getData()["phone"];
-    },
-
     validEmail: function () {
-        var email = this.getEmail();
+        var email = this.getData()["email"];
 
         if (!email) {
             return "Не введен email!";
         }
 
-        const validDomains = ['ya.ru', 'yandex.ru', 'yandex.by', 'yandex.ua', 'yandex.kz', 'yandex.com'];
+        const validDomains = ["ya.ru", "yandex.ru", "yandex.by", "yandex.ua", "yandex.kz", "yandex.com"];
         var correctEmail = /^[0-9a-z-\.]+\@[0-9a-z-]{2,}\.[a-z]{2,}$/i.test(email);
         var correctDomain = validDomains.indexOf(email.split("@")[1]) !== -1;
 
@@ -71,19 +63,19 @@ var MyForm = {
         return "OK";
     },
     validFio: function () {
-        var fio = this.getFio();
+        var fio = this.getData()["fio"];
 
         if (!fio) {
             return "Не введен Ф.И.О.";
         }
 
-        if (fio.split(" ").length !== 3 || (!fio.split(" ")[0] || !fio.split(" ")[1] || !fio.split(" ")[2])){
+        if (fio.split("/\s+/g").length !== 3){
             return "Ф.И.О. должно состоять из трех слов!"
         }
         return "OK";
     },
     validPhone: function () {
-        var phone = this.getPhone();
+        var phone = this.getData()["phone"];
 
         if (!phone) {
             return "Не введен номер телефона!";
@@ -147,28 +139,28 @@ var MyForm = {
         var validResult = this.validate();
         if (validResult.isValid) {
             var request = {
-                method: 'POST',
-                url: "server.json",
+                method: "POST",
+                url: "server.json", //Статический файл с ответом на запрос
                 data: MyForm.getData(),
                 beforeSend: function () {
-                    $("#submitButton").prop('disabled', true);
+                    $("#submitButton").prop("disabled", true); //Делаем кнопку отправки неактивной
                 },
                 complete: function () {
-                    $("#submitButton").prop('disabled', false);
+                    $("#submitButton").prop("disabled", false); //Делаем кнопку отправки вновь активной
                 },
                 success: function (data) {
                     MyForm.deleteErrors();
-                    if (data.status === 'progress') {
-                        $("#resultContainer").append('<p>В процессе</p>').addClass('progress');
+                    if (data.status === "progress") {
+                        $("#resultContainer").append("<p>В процессе</p>").addClass("progress");
                         setTimeout(function () {
-                            console.log('Resend request');
+                            console.log("Resend request");
                             $.ajax(request);
                         }, data.timeout);
-                    } else if (data.status === 'error') {
-                        $("#resultContainer").append(data.reason).addClass('error');
-                    } else if (data.status === 'success'){
+                    } else if (data.status === "error") {
+                        $("#resultContainer").append(data.reason).addClass("error"); //Добавляем сообщение об ошибке в контейнер
+                    } else if (data.status === "success"){
                         console.log(1);
-                        $("#resultContainer").append('Успешно').addClass('success');
+                        $("#resultContainer").append("Успешно").addClass("success");
                     }
                 },
                 error: function () {
